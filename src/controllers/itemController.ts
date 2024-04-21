@@ -5,14 +5,14 @@ exports.getItems = async (req, res, next) => {
   const filterQuery = JSON.parse(
     JSON.stringify(req.query).replace("gte", "$gte").replace("lte", "$lte")
   );
-  console.log(filterQuery)
+  console.log(filterQuery);
   const query = Item.find();
-  if(filterQuery.price) {
-    query.find({price: filterQuery.price});
+  if (filterQuery.price) {
+    query.find({ price: filterQuery.price });
   }
-  if(filterQuery.ids) {
-    const ids = filterQuery.ids.split(',');
-    query.find({ _id: { $in: ids}});
+  if (filterQuery.ids) {
+    const ids = filterQuery.ids.split(",");
+    query.find({ _id: { $in: ids } });
   }
 
   const items = await query.exec();
