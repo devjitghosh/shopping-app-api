@@ -1,5 +1,6 @@
 "use strict";
-const { MongoClient } = require('mongodb');
+Object.defineProperty(exports, "__esModule", { value: true });
+const mongodb_1 = require("mongodb");
 const uri = "mongodb://localhost:27017"; // Assuming MongoDB is running on the default port
 // Database Name
 const dbName = "shopping-app";
@@ -22,7 +23,7 @@ const items = [
 ];
 async function insertItems() {
     // Create a new MongoClient
-    const client = new MongoClient(uri, {
+    const client = new mongodb_1.MongoClient(uri, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });

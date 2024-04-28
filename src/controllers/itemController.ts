@@ -1,5 +1,6 @@
-const Item = require("../models/itemModel");
-exports.getItems = async (req, res, next) => {
+import Item from "../models/itemModel";
+import { Request, Response, NextFunction } from "express";
+const getItems = async (req: Request, res: Response, next: NextFunction) => {
   // res.setHeader('Access-Control-Allow-Origin', '*');
   console.log("req.query", req.query);
   const filterQuery = JSON.parse(
@@ -24,3 +25,5 @@ exports.getItems = async (req, res, next) => {
     },
   });
 };
+
+export default {getItems};

@@ -1,8 +1,8 @@
-const express = require('express');
+import express from 'express';
 const app = express();
-const router = require('./routes/routes');
-const bodyparser = require('body-parser');
-const cors = require('cors');
+import router from './routes/routes';
+import bodyparser from 'body-parser';
+import cors from 'cors';
 
 app.use(express.static('public'))
 app.use(bodyparser.json());
@@ -16,4 +16,4 @@ app.get('/', (req, res, next)=> {
 
 app.use(router);
 
-module.exports = app;
+export default app;

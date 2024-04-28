@@ -1,6 +1,7 @@
-const Cart = require("../models/cartModel");
+import { RequestHandler } from "express";
+import Cart from"../models/cartModel";
 
-exports.addItemToCart = async (req, res, next) => {
+const addItemToCart: RequestHandler = async (req, res, next) => {
   console.log("body:", req.body);
   // const item = {
   //   _id: req.body.userName,
@@ -33,12 +34,12 @@ exports.addItemToCart = async (req, res, next) => {
   });
 };
 
-exports.getCartItems = async (req, res, next) => {
+const getCartItems: RequestHandler = async (req, res, next) => {
   const username = req.query.username;
   console.log("e", username);
   const query = Cart.find({ userName: username });
   const results = await query.exec();
-  const products = {};
+  const products: {[key: number]:number} = {};
   results.forEach((item) => {
     products[item.productId] = item.quantity;
   });
@@ -50,7 +51,7 @@ exports.getCartItems = async (req, res, next) => {
   });
 };
 
-exports.updateItemCount = async (req, res, next) => {
+const updateItemCount: RequestHandler = async (req, res, next) => {
   const productId = req.body.productId;
   const userName = req.body.userName;
   const operation = req.body.operation;
@@ -68,3 +69,6 @@ exports.updateItemCount = async (req, res, next) => {
     },
   });
 };
+
+
+export default { addItemToCart, getCartItems, updateItemCount};

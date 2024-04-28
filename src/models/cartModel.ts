@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const cartSchema = new mongoose.Schema({
   userName: {
@@ -29,4 +29,4 @@ cartSchema.post("findOneAndUpdate", async function (doc) {
 
 const cartModel = mongoose.model("Cart", cartSchema);
 
-module.exports = cartModel;
+export default cartModel;

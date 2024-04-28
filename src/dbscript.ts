@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb');
+import { MongoClient } from 'mongodb';
 const uri = "mongodb://localhost:27017"; // Assuming MongoDB is running on the default port
 
 // Database Name
