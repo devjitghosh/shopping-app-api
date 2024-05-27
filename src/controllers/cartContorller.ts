@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import Cart from"../models/cartModel";
+import Cart from "../models/cartModel";
 
 const addItemToCart: RequestHandler = async (req, res, next) => {
   console.log("body:", req.body);
@@ -39,7 +39,7 @@ const getCartItems: RequestHandler = async (req, res, next) => {
   console.log("e", username);
   const query = Cart.find({ userName: username });
   const results = await query.exec();
-  const products: {[key: number]:number} = {};
+  const products: { [key: number]: number } = {};
   results.forEach((item) => {
     products[item.productId] = item.quantity;
   });
@@ -55,7 +55,7 @@ const updateItemCount: RequestHandler = async (req, res, next) => {
   const productId = req.body.productId;
   const userName = req.body.userName;
   const operation = req.body.operation;
-  const mongoOperation = { $inc: { quantity: operation==="INC" ? 1 : -1 } };
+  const mongoOperation = { $inc: { quantity: operation === "INC" ? 1 : -1 } };
   console.log(mongoOperation);
   const response = await Cart.findOneAndUpdate(
     { productId, userName },
@@ -70,5 +70,28 @@ const updateItemCount: RequestHandler = async (req, res, next) => {
   });
 };
 
+const deleteCartItem: RequestHandler = async (req, res, next) => {
+  const { productId, userName } = req.query;
+  if (!productId || !userName) {
+    res.status(400).json({
+      status: "failure",
+      body: {
+        message: "Must provide productId and userName in queryString",
+      },
+    });
+  }
+  try {
+    const deleteResponse = await Cart.deleteOne({ userName, productId });
+    console.log("DR", deleteResponse);
+    res.status(200).json({
+      status: "success",
+      body: {
+        message: "deletion successful",
+      },
+    });
+  } catch (err) {
+    console.error("err", err);
+  }
+};
 
-export default { addItemToCart, getCartItems, updateItemCount};
+export default { addItemToCart, getCartItems, updateItemCount, deleteCartItem };
