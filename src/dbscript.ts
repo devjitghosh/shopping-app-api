@@ -25,10 +25,7 @@ const items = [
 
 async function insertItems() {
   // Create a new MongoClient
-  const client = new MongoClient(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+  const client = new MongoClient(uri);
 
   try {
     // Connect to the MongoDB server
